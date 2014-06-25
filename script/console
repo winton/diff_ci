@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+lib = File.expand_path(File.dirname(__FILE__) + "/../lib")
+exec "irb -r #{lib}/diff_ci/console"
