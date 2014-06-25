@@ -1,2 +1,0 @@
-require 'haml'
-require 'sass'

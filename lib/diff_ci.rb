@@ -9,6 +9,5 @@ require 'diff_ci/application'
 
 require 'application/sinatra'
 require 'application/log'
-require 'application/haml'
 require 'application/redis'
 require 'application/controller'
