@@ -5,11 +5,11 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 Gem::Specification.new do |spec|
   spec.name          = "diff_ci"
   spec.version       = "0.0.1"
-  spec.authors       = [""]
-  spec.email         = [""]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.authors       = ["Winton Welsh"]
+  spec.email         = ["mail@wintoni.us"]
+  spec.description   = %q{A service that checks the difference between an array across multiple sessions}
+  spec.summary       = %q{A service that checks the difference between an array across multiple sessions.}
+  spec.homepage      = "http://github.com/winton/diff_ci"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "bundler", "~> 1.3"
   spec.add_dependency "haml"
-  spec.add_dependency "lilypad"
   spec.add_dependency "redis"
   spec.add_dependency "sinatra"
 
