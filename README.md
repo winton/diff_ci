@@ -1,33 +1,6 @@
 ##DiffCi
 
-A gem template for new Ruby projects.
-
-###Goals
-
-* Use widely accepted practices and libraries
-* Automate the creation and renaming of projects
-* Projects share git history for easy updates
-* Add functionality through template [branches](https://github.com/winton/diff_ci/branches)
-
-###Install
-
-    gem install diff_ci
-
-###Create a new project
-
-	diff_ci [project_name] [branch]...
-
-###Available branches
-
-* master
-* active_wrapper
-* rails
-* sinatra
-* sinatra-activerecord
-* sinatra-activerecord-authlogic
-* spec-activerecord
-* spec-framework
-* stasis
+A service that checks the difference between an array across multiple sessions.
 
 ### Contribute
 
