@@ -1,15 +1,42 @@
 ##DiffCi
 
-A service that checks the difference between an array across multiple sessions.
+A service that tests differences between values.
 
-### Contribute
+### POST /compare.json
 
-[Create an issue](https://github.com/winton/diff_ci/issues/new) to discuss template changes.
+Compare a value with the previously stored baseline value.
 
-Pull requests for template changes and new branches are even better.
+If there is no stored baseline value, all tests pass and the **value** becomes the baseline value.
 
-### Stay up to date
+##### Input Object
 
-[Star this project](https://github.com/winton/diff_ci#) on Github.
+* **id**
+* **tests** - Object that describes how to test difference
+  * **additions** - `true` or `false` (only applies to array values)
+  * **removals** - `true` or `false` (only applies to array values)
+  * **sequence** - `true` or `false` (only applies to array values)
+  * **greater_than** - multiplier (i.e. `0.2`) (only applies to numbers or arrays of numbers)
+  * **less_than** - multiplier (i.e. `0.2`) (only applies to numbers or arrays of numbers)
+* **value** - Value for comparison. Can be one of the following:
+  * String
+  * Number
+  * Array of strings
+  * Array of numbers
 
-[Follow Winton Welsh](http://twitter.com/intent/user?screen_name=wintonius) on Twitter.
+##### Output Object
+
+* **pass** - `true` or `false`
+* **additions** - Array of additions
+* **removals** - Array of removals
+* **sequence** - `true` or `false`
+* **difference** - numeric difference or array of numeric differences
+
+### POST /baseline.json
+
+Update stored baseline value.
+
+##### Input Object
+
+* **id**
+* **use_last** - `true` or `false`. Make the value of the last comparison the baseline value
+* **value** - Baseline value (if **use_last** not specified)
