@@ -8,7 +8,7 @@ Update the stored baseline value.
 
 ##### Input Object
 
-* **id**
+* **key** - Key to store baseline value under (string)
 * **use_last** - `true` or `false`. Make the value of the last comparison the baseline value
 * **value** - Baseline value (if **use_last** not specified). Supported data types:
   * String
@@ -24,7 +24,7 @@ If there is no baseline value, all tests pass and the **value** becomes the base
 
 ##### Input Object
 
-* **id**
+* **key** - Key of baseline value (string)
 * **tests** - Object that describes the comparison tests to run
   * **additions** - `true` or `false`
   * **removals** - `true` or `false`
