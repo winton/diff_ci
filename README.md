@@ -8,7 +8,7 @@ Update the stored baseline value.
 
 ##### Input Object
 
-* **key** - Key to store baseline value under (string)
+* **key** - Key for storing baseline value (string)
 * **use_last** - `true` or `false`. Make the value of the last comparison the baseline value
 * **value** - Baseline value (if **use_last** not specified). Supported data types:
   * String
@@ -37,7 +37,8 @@ If there is no baseline value, all tests pass and the **value** becomes the base
 ##### Output Object
 
 * **pass** - `true` if all comparisons yielded no difference
+* **baseline** - The baseline value
 * **additions** - Array of additions
 * **removals** - Array of removals
-* **sequence** - `true` if sequence was in same order
+* **sequence** - `false` if comparison value is out of order
 * **difference** - Difference in numeric values
