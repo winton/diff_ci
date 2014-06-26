@@ -3,5 +3,5 @@ rvm:
   - 2.1.1
 services:
   - redis-server
-install:
+before_install:
   - cp config/redis.example.yml config/redis.yml
