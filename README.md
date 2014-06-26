@@ -12,11 +12,11 @@ If there is no stored baseline value, all tests pass and the **value** becomes t
 
 * **id**
 * **tests** - Object that describes how to test difference
-  * **additions** - `true` or `false` (only applies to array values)
-  * **removals** - `true` or `false` (only applies to array values)
-  * **sequence** - `true` or `false` (only applies to array values)
-  * **greater_than** - multiplier (i.e. `0.2`) (only applies to numbers or arrays of numbers)
-  * **less_than** - multiplier (i.e. `0.2`) (only applies to numbers or arrays of numbers)
+  * **additions** - `true` or `false`
+  * **removals** - `true` or `false`
+  * **sequence** - `true` or `false`
+  * **greater_than** - multiplier (i.e. `0.2`)
+  * **less_than** - multiplier (i.e. `0.2`)
 * **value** - Value for comparison. Can be one of the following:
   * String
   * Number
@@ -29,7 +29,7 @@ If there is no stored baseline value, all tests pass and the **value** becomes t
 * **additions** - Array of additions
 * **removals** - Array of removals
 * **sequence** - `true` or `false`
-* **difference** - numeric difference or array of numeric differences
+* **difference** - Numeric difference or array of numeric differences
 
 ### POST /baseline.json
 
