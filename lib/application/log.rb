@@ -1,8 +1,9 @@
 Application.class_eval do
 
-  unless File.basename($0) == 'rspec' || ENV['RACK_ENV'] == 'test'
-    log = File.new("#{root}/log/#{environment}.log", "a")
-    STDOUT.reopen(log)
-    STDERR.reopen(log)
+  configure do
+    enable :logging
+    log = File.new("#{root}/log/#{environment}.log", "a+")
+    log.sync = true
+    use Rack::CommonLogger, log
   end
 end
