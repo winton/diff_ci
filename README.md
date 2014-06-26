@@ -29,8 +29,8 @@ If there is no baseline value, all tests pass and the **value** becomes the base
   * **additions** - `true` or `false`
   * **removals** - `true` or `false`
   * **sequence** - `true` or `false`
-  * **greater_than** - multiplier (i.e. `0.2`)
-  * **less_than** - multiplier (i.e. `0.2`)
+  * **greater_than** - Multiplier number (i.e. `0.2`)
+  * **less_than** - Multiplier number (i.e. `0.2`)
 * **value** - Value to compare with baseline
 
 
