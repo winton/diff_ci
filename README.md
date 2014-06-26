@@ -1,5 +1,7 @@
 ##DiffCi
 
+[![Build Status](https://travis-ci.org/winton/diff_ci.svg?branch=master)](https://travis-ci.org/winton/diff_ci)
+
 A service that tests differences between stored values.
 
 ### POST /baseline.json
