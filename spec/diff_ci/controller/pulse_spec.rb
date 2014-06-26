@@ -1,8 +1,18 @@
 require 'spec_helper'
 
-describe "/pulse" do
+describe "get /pulse" do
 
-  before  { get '/pulse' }
-  specify { expect(last_response).to be_ok }
-  specify { expect(last_response.body).to eq('test OK') }
+  before :all do
+    get '/pulse'
+  end
+
+  describe "response" do
+    subject { last_response }
+    it      { should be_ok }
+
+    describe "body" do
+      subject { last_response.body }
+      it      { should eq('test OK') }
+    end
+  end
 end

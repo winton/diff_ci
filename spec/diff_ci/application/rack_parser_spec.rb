@@ -8,7 +8,20 @@ describe Rack::Parser do
     end
   end
 
-  before  { post('/parse.json', '{"a":"b","c":"d"}', { "CONTENT_TYPE" => "application/json" }) }
-  specify { expect(last_response).to be_ok }
-  specify { expect(last_response.body).to eq('{"a"=>"b", "c"=>"d"}') }
+  describe "json request" do
+
+    before :all do
+      post('/parse.json', '{"a":"b","c":"d"}', { "CONTENT_TYPE" => "application/json" })
+    end
+
+    describe "response" do
+      subject { last_response }
+      it      { should be_ok }
+
+      describe "body" do
+        subject { last_response.body }
+        it      { should eq('{"a"=>"b", "c"=>"d"}') }
+      end
+    end
+  end
 end
