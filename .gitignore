@@ -4,7 +4,6 @@
 *.log
 config/database.yml
 config/deploy.rb
-log
 *.gem
 *.rbc
 .bundle
