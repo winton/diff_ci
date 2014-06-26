@@ -1,4 +1,5 @@
 require 'redis'
+require 'yaml'
 
 def redis
   $redis ||= (
@@ -13,7 +14,7 @@ def redis
       config['db'] = db
 
       $redis_url = "#{config['host']}:#{config['port']}/#{config['db']}"
-
+      
       ::Redis.new(
         :host => config['host'],
         :port => config['port'],

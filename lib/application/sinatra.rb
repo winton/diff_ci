@@ -1,9 +1,14 @@
 Application.class_eval do
   
-  set :environment, $testing ? :test : environment
-  set :root, File.expand_path("#{File.dirname(__FILE__)}/../../")
-  set :public_dir, "#{root}/public"
-  set :logging, true
-  set :static, true
-  set :views, "#{root}/lib/#{app_name}/view"
+  configure do
+    set :dump_errors, true
+    set :root, File.expand_path("#{File.dirname(__FILE__)}/../../")
+    set :public_dir, "#{root}/public"
+    set :logging, true
+    set :views, "#{root}/lib/#{app_name}/view"
+
+    if ENV['RACK_ENV'] == 'test'
+      set :raise_errors, true
+    end
+  end
 end
