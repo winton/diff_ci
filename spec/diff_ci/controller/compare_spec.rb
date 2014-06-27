@@ -4,7 +4,9 @@ describe "post /compare.json" do
 
   def compare(obj)
     post(
-      '/compare.json', Oj.dump(obj), { "CONTENT_TYPE" => "application/json" }
+      '/compare.json',
+      Oj.dump(obj),
+      "CONTENT_TYPE" => "application/json"
     )
   end
 
@@ -71,7 +73,9 @@ describe "post /compare.json" do
           describe "body" do
             subject { Oj.load(last_response.body) }
             it do
-              should eq(@response.merge(additions: [ "d" ], pass: false))
+              should eq(@response.merge(
+                additions: [ "d" ], pass: false
+              ))
             end
           end
         end
@@ -94,7 +98,9 @@ describe "post /compare.json" do
           describe "body" do
             subject { Oj.load(last_response.body) }
             it do
-              should eq(@response.merge(subtractions: [ "b" ], pass: false))
+              should eq(@response.merge(
+                subtractions: [ "b" ], pass: false
+              ))
             end
           end
         end
@@ -126,7 +132,9 @@ describe "post /compare.json" do
             describe "body" do
               subject { Oj.load(last_response.body) }
               it do
-                should eq(@response.merge(baseline: @value, difference: 1.1, pass: false))
+                should eq(@response.merge(
+                  baseline: @value, difference: 1.1, pass: false
+                ))
               end
             end
           end
@@ -148,7 +156,9 @@ describe "post /compare.json" do
             describe "body" do
               subject { Oj.load(last_response.body) }
               it do
-                should eq(@response.merge(baseline: @value, difference: 1))
+                should eq(@response.merge(
+                  baseline: @value, difference: 1
+                ))
               end
             end
           end
@@ -179,7 +189,9 @@ describe "post /compare.json" do
             describe "body" do
               subject { Oj.load(last_response.body) }
               it do
-                should eq(@response.merge(baseline: @value, difference: -0.2, pass: false))
+                should eq(@response.merge(
+                  baseline: @value, difference: -0.2, pass: false
+                ))
               end
             end
           end
@@ -201,7 +213,9 @@ describe "post /compare.json" do
             describe "body" do
               subject { Oj.load(last_response.body) }
               it do
-                should eq(@response.merge(baseline: @value, difference: -0.1))
+                should eq(@response.merge(
+                  baseline: @value, difference: -0.1
+                ))
               end
             end
           end
