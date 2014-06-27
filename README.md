@@ -30,7 +30,6 @@ If there is no baseline value, all tests pass and the **value** becomes the base
 * **tests** - Object that describes the comparison tests to run
   * **additions** - `true` or `false`
   * **subtractions** - `true` or `false`
-  * **sequence** - `true` or `false`
   * **greater_than** - Multiplier number (i.e. `0.2`)
   * **less_than** - Multiplier number (i.e. `0.2`)
 * **value** - Value to compare with baseline
@@ -42,5 +41,4 @@ If there is no baseline value, all tests pass and the **value** becomes the base
 * **baseline** - The baseline value
 * **additions** - Array of additions
 * **subtractions** - Array of subtractions
-* **sequence** - `false` if comparison value is out of order
 * **difference** - Difference in numeric values

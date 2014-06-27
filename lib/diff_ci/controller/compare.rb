@@ -9,19 +9,23 @@ Application.class_eval do
     baseline     = redis.get(key)
     additions    = []
     subtractions = []
-    sequence     = true
     difference   = 0
 
     if baseline
-      baseline  = Oj.load(baseline)
+      baseline = Oj.load(baseline)
 
       if value.is_a?(Array) && baseline.is_a?(Array)
         additions    = value - baseline
         subtractions = baseline - value
       end
 
+      if value.is_a?(Numeric) && baseline.is_a?(Numeric)
+        difference = value - baseline
+      end
+
       pass = !(tests[:additions]    && additions.any?)
       pass = !(tests[:subtractions] && subtractions.any?) if pass
+      pass = !(value > tests[:greater_than] * baseline)   if pass
     else
       baseline = value
       redis.set(key, Oj.dump(baseline))
@@ -32,7 +36,6 @@ Application.class_eval do
       baseline:     baseline,
       additions:    additions,
       subtractions: subtractions,
-      sequence:     sequence,
       difference:   difference
     )
   end

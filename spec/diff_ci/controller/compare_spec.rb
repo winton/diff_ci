@@ -9,14 +9,11 @@ describe "post /compare.json" do
   end
 
   before do
-    @key   = "test"
-    @value = [ 'a', 'b', 'c' ]
+    @key      = "test"
     @response = {
       pass:         true,
-      baseline:     @value,
       additions:    [],
       subtractions: [],
-      sequence:     true,
       difference:   0
     }
   end
@@ -26,6 +23,8 @@ describe "post /compare.json" do
   describe "baseline not stored" do
 
     before do
+      @value = 1
+      @response.merge!(baseline: @value)
       compare(key: @key, value: @value)
     end
 
@@ -42,55 +41,116 @@ describe "post /compare.json" do
     describe "redis" do
 
       subject { Oj.load(redis.get(@key)) }
-      it      { should eq([ 'a', 'b', 'c' ]) }
+      it      { should eq(@value) }
     end
   end
 
   describe "baseline stored" do
-
-    before { redis.set(@key, Oj.dump(@value)) }
-
-    describe "item added to array value" do
+    describe "array value" do
 
       before do
-        compare(
-          key:   @key,
-          tests: { additions: true },
-          value: [ 'a', 'b', 'c', 'd' ]
-        )
+        @value = [ 'a', 'b', 'c' ]
+        @response.merge!(baseline: @value)
+        redis.set(@key, Oj.dump(@value))
       end
 
-      describe "response" do
-        subject { last_response }
-        it      { should be_ok }
+      describe "item added to array value" do
 
-        describe "body" do
-          subject { Oj.load(last_response.body) }
-          it do
-            should eq(@response.merge(additions: [ "d" ], pass: false))
+        before do
+          compare(
+            key:   @key,
+            tests: { additions: true },
+            value: [ 'a', 'b', 'c', 'd' ]
+          )
+        end
+
+        describe "response" do
+          subject { last_response }
+          it      { should be_ok }
+
+          describe "body" do
+            subject { Oj.load(last_response.body) }
+            it do
+              should eq(@response.merge(additions: [ "d" ], pass: false))
+            end
+          end
+        end
+      end
+
+      describe "item removed from array value" do
+
+        before do
+          compare(
+            key:   @key,
+            tests: { subtractions: true },
+            value: [ 'a', 'c' ]
+          )
+        end
+
+        describe "response" do
+          subject { last_response }
+          it      { should be_ok }
+
+          describe "body" do
+            subject { Oj.load(last_response.body) }
+            it do
+              should eq(@response.merge(subtractions: [ "b" ], pass: false))
+            end
           end
         end
       end
     end
 
-    describe "item removed from array value" do
+    describe "number value" do
+      describe "greater than multiplier" do
 
-      before do
-        compare(
-          key:   @key,
-          tests: { subtractions: true },
-          value: [ 'a', 'c' ]
-        )
-      end
+        before do
+          @value = 1
+          redis.set(@key, Oj.dump(@value))
+        end
 
-      describe "response" do
-        subject { last_response }
-        it      { should be_ok }
+        describe "fail" do
 
-        describe "body" do
-          subject { Oj.load(last_response.body) }
-          it do
-            should eq(@response.merge(subtractions: [ "b" ], pass: false))
+          before do
+            compare(
+              key:   @key,
+              tests: { greater_than: 2 },
+              value: 2.1
+            )
+          end
+
+          describe "response" do
+            subject { last_response }
+            it      { should be_ok }
+
+            describe "body" do
+              subject { Oj.load(last_response.body) }
+              it do
+                should eq(@response.merge(baseline: @value, difference: 1.1, pass: false))
+              end
+            end
+          end
+        end
+
+        describe "pass" do
+          before do
+            compare(
+              key:   @key,
+              tests: { greater_than: 2 },
+              value: 2
+            )
+          end
+
+          describe "response" do
+            subject { last_response }
+            it      { should be_ok }
+
+            describe "body" do
+              subject { Oj.load(last_response.body) }
+              it do
+                should eq(@response.merge(baseline: @value, difference: 1))
+              end
+            end
           end
         end
       end
