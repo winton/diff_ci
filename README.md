@@ -29,7 +29,7 @@ If there is no baseline value, all tests pass and the **value** becomes the base
 * **key** - Key of baseline value (string)
 * **tests** - Object that describes the comparison tests to run
   * **additions** - `true` or `false`
-  * **removals** - `true` or `false`
+  * **subtractions** - `true` or `false`
   * **sequence** - `true` or `false`
   * **greater_than** - Multiplier number (i.e. `0.2`)
   * **less_than** - Multiplier number (i.e. `0.2`)
@@ -41,6 +41,6 @@ If there is no baseline value, all tests pass and the **value** becomes the base
 * **pass** - `true` if all comparisons yielded no difference
 * **baseline** - The baseline value
 * **additions** - Array of additions
-* **removals** - Array of removals
+* **subtractions** - Array of subtractions
 * **sequence** - `false` if comparison value is out of order
 * **difference** - Difference in numeric values

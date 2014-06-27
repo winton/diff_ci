@@ -12,12 +12,12 @@ describe "post /compare.json" do
     @key   = "test"
     @value = [ 'a', 'b', 'c' ]
     @response = {
-      pass:       true,
-      baseline:   @value,
-      additions:  [],
-      removals:   [],
-      sequence:   true,
-      difference: 0
+      pass:         true,
+      baseline:     @value,
+      additions:    [],
+      subtractions: [],
+      sequence:     true,
+      difference:   0
     }
   end
 
@@ -68,6 +68,29 @@ describe "post /compare.json" do
           subject { Oj.load(last_response.body) }
           it do
             should eq(@response.merge(additions: [ "d" ], pass: false))
+          end
+        end
+      end
+    end
+
+    describe "item removed from array value" do
+
+      before do
+        compare(
+          key:   @key,
+          tests: { subtractions: true },
+          value: [ 'a', 'c' ]
+        )
+      end
+
+      describe "response" do
+        subject { last_response }
+        it      { should be_ok }
+
+        describe "body" do
+          subject { Oj.load(last_response.body) }
+          it do
+            should eq(@response.merge(subtractions: [ "b" ], pass: false))
           end
         end
       end
