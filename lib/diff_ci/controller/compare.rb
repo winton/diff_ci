@@ -25,7 +25,8 @@ Application.class_eval do
 
       pass = !(tests[:additions]    && additions.any?)
       pass = !(tests[:subtractions] && subtractions.any?) if pass
-      pass = !(value > tests[:greater_than] * baseline)   if pass
+      pass = !(tests[:greater_than] && value > tests[:greater_than] * baseline) if pass
+      pass = !(tests[:less_than]    && value < tests[:less_than]    * baseline) if pass
     else
       baseline = value
       redis.set(key, Oj.dump(baseline))

@@ -154,6 +154,59 @@ describe "post /compare.json" do
           end
         end
       end
+
+      describe "less than multiplier" do
+
+        before do
+          @value = 1
+          redis.set(@key, Oj.dump(@value))
+        end
+
+        describe "fail" do
+
+          before do
+            compare(
+              key:   @key,
+              tests: { less_than: 0.9 },
+              value: 0.8
+            )
+          end
+
+          describe "response" do
+            subject { last_response }
+            it      { should be_ok }
+
+            describe "body" do
+              subject { Oj.load(last_response.body) }
+              it do
+                should eq(@response.merge(baseline: @value, difference: -0.2, pass: false))
+              end
+            end
+          end
+        end
+
+        describe "pass" do
+          before do
+            compare(
+              key:   @key,
+              tests: { less_than: 0.9 },
+              value: 0.9
+            )
+          end
+
+          describe "response" do
+            subject { last_response }
+            it      { should be_ok }
+
+            describe "body" do
+              subject { Oj.load(last_response.body) }
+              it do
+                should eq(@response.merge(baseline: @value, difference: -0.1))
+              end
+            end
+          end
+        end
+      end
     end
   end
 end
