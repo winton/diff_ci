@@ -223,4 +223,42 @@ describe "post /compare.json" do
       end
     end
   end
+
+  describe "baseline stored already" do
+    describe "array value" do
+
+      before do
+        @value = [ "a", "b", "c" ]
+        @response.merge!(baseline: @value)
+
+        compare(
+          key:   @key,
+          tests: { additions: true },
+          value: @value
+        )
+        compare(
+          key:   @key,
+          tests: { additions: true },
+          value: @value + [ 'd' ]
+        )
+      end
+
+      describe "item added to array value" do
+
+        describe "response" do
+          subject { last_response }
+          it      { should be_ok }
+
+          describe "body" do
+            subject { Oj.load(last_response.body) }
+            it do
+              should eq(@response.merge(
+                additions: [ "d" ], pass: false
+              ))
+            end
+          end
+        end
+      end
+    end
+  end
 end
