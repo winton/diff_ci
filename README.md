@@ -12,10 +12,8 @@ Update the stored baseline value.
 
 * **key** - Key for storing baseline value (string)
 * **value** - Baseline value. Supported data types:
-  * String
   * Number
-  * Array of strings
-  * Array of numbers
+  * Array
 
 ##### Output Value
 
