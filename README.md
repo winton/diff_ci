@@ -11,12 +11,15 @@ Update the stored baseline value.
 ##### Input Object
 
 * **key** - Key for storing baseline value (string)
-* **use_last** - `true` or `false`. Make the value of the last comparison the baseline value
-* **value** - Baseline value (if **use_last** not specified). Supported data types:
+* **value** - Baseline value. Supported data types:
   * String
   * Number
   * Array of strings
   * Array of numbers
+
+##### Output Value
+
+The stored baseline value.
 
 ### POST /compare.json
 
